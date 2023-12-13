@@ -1,0 +1,158 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from EventServiceService WSDL service -->
+
+  <service name="EventService" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://services"/>
+      <parameter name="wsdlServiceElement" value="EventServiceService"/>
+      <parameter name="schemaQualified" value="http://models,http://services"/>
+      <parameter name="wsdlServicePort" value="EventService"/>
+      <parameter name="className" value="services.EventServiceSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="EventService"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="getConnection" qname="operNS:getConnection" xmlns:operNS="http://services" returnQName="retNS:getConnectionReturn" xmlns:retNS="http://services" returnType="rtns:anyType" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+      </operation>
+      <operation name="getAllEvents" qname="operNS:getAllEvents" xmlns:operNS="http://services" returnQName="retNS:getAllEventsReturn" xmlns:retNS="http://services" returnType="rtns:ArrayOf_xsd_anyType" xmlns:rtns="http://services" returnItemQName="tns:item" xmlns:tns="http://services" soapAction="" >
+      </operation>
+      <operation name="updateEvent" qname="operNS:updateEvent" xmlns:operNS="http://services" returnQName="retNS:updateEventReturn" xmlns:retNS="http://services" returnType="rtns:boolean" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:eventID" xmlns:pns="http://services" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:title" xmlns:pns="http://services" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:description" xmlns:pns="http://services" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:date" xmlns:pns="http://services" type="tns:dateTime" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:category" xmlns:pns="http://services" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getEventsByID" qname="operNS:getEventsByID" xmlns:operNS="http://services" returnQName="retNS:getEventsByIDReturn" xmlns:retNS="http://services" returnType="rtns:ArrayOf_xsd_anyType" xmlns:rtns="http://services" returnItemQName="tns:item" xmlns:tns="http://services" soapAction="" >
+        <parameter qname="pns:login" xmlns:pns="http://services" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getUserByEmail" qname="operNS:getUserByEmail" xmlns:operNS="http://services" returnQName="retNS:getUserByEmailReturn" xmlns:retNS="http://services" returnType="rtns:users" xmlns:rtns="http://models" soapAction="" >
+        <parameter qname="pns:email" xmlns:pns="http://services" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="registerEvent" qname="operNS:registerEvent" xmlns:operNS="http://services" returnQName="retNS:registerEventReturn" xmlns:retNS="http://services" returnType="rtns:boolean" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:evnt" xmlns:pns="http://services" type="tns:anyType" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:session" xmlns:pns="http://services" type="tns:anyType" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="getUserByEmail getConnection getEventsByID updateEvent getAllEvents registerEvent"/>
+
+      <typeMapping
+        xmlns:ns="http://services"
+        qname="ns:>getEventsByIDResponse"
+        type="java:services.GetEventsByIDResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://services"
+        qname="ns:>getUserByEmail"
+        type="java:services.GetUserByEmail"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://services"
+        qname="ns:>updateEvent"
+        type="java:services.UpdateEvent"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://services"
+        qname="ns:>getConnectionResponse"
+        type="java:services.GetConnectionResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://services"
+        qname="ns:>registerEventResponse"
+        type="java:services.RegisterEventResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://services"
+        qname="ns:>getAllEventsResponse"
+        type="java:services.GetAllEventsResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <arrayMapping
+        xmlns:ns="http://services"
+        qname="ns:ArrayOf_xsd_anyType"
+        type="java:java.lang.Object[]"
+        innerType="cmp-ns:anyType" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://services"
+        qname="ns:>updateEventResponse"
+        type="java:services.UpdateEventResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://services"
+        qname="ns:>getConnection"
+        type="java:services.GetConnection"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://services"
+        qname="ns:>registerEvent"
+        type="java:services.RegisterEvent"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://models"
+        qname="ns:users"
+        type="java:models.Users"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://services"
+        qname="ns:>getAllEvents"
+        type="java:services.GetAllEvents"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://services"
+        qname="ns:>getUserByEmailResponse"
+        type="java:services.GetUserByEmailResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://services"
+        qname="ns:>getEventsByID"
+        type="java:services.GetEventsByID"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+  </service>
+</deployment>

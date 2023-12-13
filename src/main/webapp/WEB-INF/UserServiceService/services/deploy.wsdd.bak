@@ -1,0 +1,74 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from UserServiceService WSDL service -->
+
+  <service name="UserService" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://services"/>
+      <parameter name="wsdlServiceElement" value="UserServiceService"/>
+      <parameter name="schemaQualified" value="http://models,http://services"/>
+      <parameter name="wsdlServicePort" value="UserService"/>
+      <parameter name="className" value="services.UserServiceSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="UserService"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="getConnection" qname="operNS:getConnection" xmlns:operNS="http://services" returnQName="retNS:getConnectionReturn" xmlns:retNS="http://services" returnType="rtns:anyType" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+      </operation>
+      <operation name="getUserByEmail" qname="operNS:getUserByEmail" xmlns:operNS="http://services" returnQName="retNS:getUserByEmailReturn" xmlns:retNS="http://services" returnType="rtns:users" xmlns:rtns="http://models" soapAction="" >
+        <parameter qname="pns:email" xmlns:pns="http://services" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="registerUser" qname="operNS:registerUser" xmlns:operNS="http://services" returnQName="retNS:registerUserReturn" xmlns:retNS="http://services" returnType="rtns:boolean" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:user" xmlns:pns="http://services" type="tns:users" xmlns:tns="http://models"/>
+      </operation>
+      <parameter name="allowedMethods" value="getUserByEmail getConnection registerUser"/>
+
+      <typeMapping
+        xmlns:ns="http://services"
+        qname="ns:>getUserByEmail"
+        type="java:services.GetUserByEmail"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://services"
+        qname="ns:>registerUser"
+        type="java:services.RegisterUser"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://models"
+        qname="ns:users"
+        type="java:models.Users"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://services"
+        qname="ns:>registerUserResponse"
+        type="java:services.RegisterUserResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://services"
+        qname="ns:>getUserByEmailResponse"
+        type="java:services.GetUserByEmailResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+  </service>
+</deployment>

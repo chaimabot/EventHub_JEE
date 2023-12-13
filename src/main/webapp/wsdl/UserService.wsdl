@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://services" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://services" xmlns:intf="http://services" xmlns:tns1="http://sql.java" xmlns:tns2="http://models" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://services" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://models"/>
+   <import namespace="http://sql.java"/>
+   <element name="getConnection">
+    <complexType/>
+   </element>
+   <element name="getConnectionResponse">
+    <complexType>
+     <sequence>
+      <element name="getConnectionReturn" type="xsd:anyType"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getUserByEmail">
+    <complexType>
+     <sequence>
+      <element name="email" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getUserByEmailResponse">
+    <complexType>
+     <sequence>
+      <element name="getUserByEmailReturn" type="tns2:users"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="registerUser">
+    <complexType>
+     <sequence>
+      <element name="user" type="tns2:users"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="registerUserResponse">
+    <complexType>
+     <sequence>
+      <element name="registerUserReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://models" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://sql.java"/>
+   <complexType name="users">
+    <sequence>
+     <element name="email" nillable="true" type="xsd:string"/>
+     <element name="firstName" nillable="true" type="xsd:string"/>
+     <element name="lastName" nillable="true" type="xsd:string"/>
+     <element name="number" nillable="true" type="xsd:string"/>
+     <element name="password" nillable="true" type="xsd:string"/>
+     <element name="specialty" nillable="true" type="xsd:string"/>
+     <element name="userID" type="xsd:int"/>
+    </sequence>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="getConnectionRequest">
+
+      <wsdl:part element="impl:getConnection" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getConnectionResponse">
+
+      <wsdl:part element="impl:getConnectionResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getUserByEmailRequest">
+
+      <wsdl:part element="impl:getUserByEmail" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="registerUserResponse">
+
+      <wsdl:part element="impl:registerUserResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="registerUserRequest">
+
+      <wsdl:part element="impl:registerUser" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getUserByEmailResponse">
+
+      <wsdl:part element="impl:getUserByEmailResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="UserService">
+
+      <wsdl:operation name="getConnection">
+
+         <wsdl:input message="impl:getConnectionRequest" name="getConnectionRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getConnectionResponse" name="getConnectionResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getUserByEmail">
+
+         <wsdl:input message="impl:getUserByEmailRequest" name="getUserByEmailRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getUserByEmailResponse" name="getUserByEmailResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="registerUser">
+
+         <wsdl:input message="impl:registerUserRequest" name="registerUserRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:registerUserResponse" name="registerUserResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="UserServiceSoapBinding" type="impl:UserService">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="getConnection">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getConnectionRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getConnectionResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getUserByEmail">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getUserByEmailRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getUserByEmailResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="registerUser">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="registerUserRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="registerUserResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="UserServiceService">
+
+      <wsdl:port binding="impl:UserServiceSoapBinding" name="UserService">
+
+         <wsdlsoap:address location="http://localhost:8083/Project_HubEvent/services/UserService"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>
